@@ -52,7 +52,7 @@ Daily or monthly consumption: create a *Utility meter* helper on the *Total wate
 
 ## Credits
 
-Register map and commands are based on the community project [getjudo](https://github.com/ShapeLabs/getjudo) by ShapeLabs, which reverse-engineered the myjudo.eu interface. No code from it is included.
+Register map and commands are based on the community project [Judo-i-soft-save-plus-to-mqtt-bridge](https://github.com/www-ShapeLabs-de/Judo-i-soft-save-plus-to-mqtt-bridge) (getjudo) by ShapeLabs, which reverse-engineered the myjudo.eu interface. No code from it is included.
 
 Written with the help of an AI assistant.
 

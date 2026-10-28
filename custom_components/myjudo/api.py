@@ -1,7 +1,8 @@
 """Client for the JUDO myjudo.eu cloud interface.
 
 The interface is not officially documented. Register indices and byte offsets
-were taken from the community project "getjudo" (ShapeLabs) and verified
+were taken from the community project "getjudo" by ShapeLabs
+(https://github.com/www-ShapeLabs-de/Judo-i-soft-save-plus-to-mqtt-bridge) and verified
 against a live i-soft safe device.
 """
 
