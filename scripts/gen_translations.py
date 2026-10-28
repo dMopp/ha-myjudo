@@ -183,6 +183,13 @@ TEXT = {
                 "data": {
                     "username": ("Username", "Benutzername"),
                     "password": ("Password", "Passwort"),
+                    "model": ("Model", "Modell"),
+                },
+                "data_description": {
+                    "model": (
+                        "Leave on Automatic if unsure. Can be changed later under Configure.",
+                        "Im Zweifel auf Automatisch lassen. Später unter Konfigurieren änderbar.",
+                    ),
                 },
             },
             "reauth_confirm": {

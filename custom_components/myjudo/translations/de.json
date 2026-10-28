@@ -5,7 +5,11 @@
         "description": "Mit dem myjudo.eu-Konto anmelden (dasselbe wie in der JUDO-App).",
         "data": {
           "username": "Benutzername",
-          "password": "Passwort"
+          "password": "Passwort",
+          "model": "Modell"
+        },
+        "data_description": {
+          "model": "Im Zweifel auf Automatisch lassen. Später unter Konfigurieren änderbar."
         }
       },
       "reauth_confirm": {

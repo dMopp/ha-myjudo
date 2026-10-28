@@ -5,7 +5,11 @@
         "description": "Log in with your myjudo.eu account (the same one the JUDO app uses).",
         "data": {
           "username": "Username",
-          "password": "Password"
+          "password": "Password",
+          "model": "Model"
+        },
+        "data_description": {
+          "model": "Leave on Automatic if unsure. Can be changed later under Configure."
         }
       },
       "reauth_confirm": {

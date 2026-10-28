@@ -40,6 +40,14 @@ from .coordinator import JudoConfigEntry
 
 _LOGGER = logging.getLogger(__name__)
 
+MODEL_SELECTOR = SelectSelector(
+    SelectSelectorConfig(
+        options=MODELS,
+        translation_key=CONF_MODEL,
+        mode=SelectSelectorMode.DROPDOWN,
+    )
+)
+
 USER_SCHEMA = vol.Schema(
     {
         vol.Required(CONF_USERNAME): TextSelector(
@@ -87,12 +95,22 @@ class JudoConfigFlow(ConfigFlow, domain=DOMAIN):
                 )
             ):
                 return self.async_create_entry(
-                    title=user_input[CONF_USERNAME], data=user_input
+                    title=user_input[CONF_USERNAME],
+                    data={
+                        CONF_USERNAME: user_input[CONF_USERNAME],
+                        CONF_PASSWORD: user_input[CONF_PASSWORD],
+                    },
+                    options={CONF_MODEL: user_input.get(CONF_MODEL, MODEL_AUTO)},
                 )
             errors["base"] = error
         return self.async_show_form(
             step_id="user",
-            data_schema=self.add_suggested_values_to_schema(USER_SCHEMA, user_input),
+            data_schema=self.add_suggested_values_to_schema(
+                USER_SCHEMA.extend(
+                    {vol.Required(CONF_MODEL, default=MODEL_AUTO): MODEL_SELECTOR}
+                ),
+                user_input,
+            ),
             errors=errors,
         )
 
@@ -149,13 +167,7 @@ class JudoOptionsFlow(OptionsFlow):
                         mode=NumberSelectorMode.BOX,
                     )
                 ),
-                vol.Required(CONF_MODEL, default=MODEL_AUTO): SelectSelector(
-                    SelectSelectorConfig(
-                        options=MODELS,
-                        translation_key=CONF_MODEL,
-                        mode=SelectSelectorMode.DROPDOWN,
-                    )
-                ),
+                vol.Required(CONF_MODEL, default=MODEL_AUTO): MODEL_SELECTOR,
                 vol.Required(
                     CONF_SODIUM_INPUT, default=DEFAULT_SODIUM_INPUT
                 ): NumberSelector(

@@ -32,7 +32,20 @@ async def test_user_flow(hass, mock_api):
     assert result["type"] is FlowResultType.CREATE_ENTRY
     assert result["title"] == "JudoUser"
     assert result["data"] == USER_INPUT
+    assert result["options"] == {CONF_MODEL: MODEL_AUTO}
     assert result["result"].unique_id == "judouser"
+
+
+async def test_user_flow_with_model(hass, mock_api):
+    result = await hass.config_entries.flow.async_init(
+        DOMAIN, context={"source": config_entries.SOURCE_USER}
+    )
+    result = await hass.config_entries.flow.async_configure(
+        result["flow_id"], {**USER_INPUT, CONF_MODEL: MODEL_SOFTWELL_P}
+    )
+    assert result["type"] is FlowResultType.CREATE_ENTRY
+    assert result["data"] == USER_INPUT
+    assert result["options"] == {CONF_MODEL: MODEL_SOFTWELL_P}
 
 
 async def test_user_flow_invalid_auth_then_ok(hass, aioclient_mock, mock_api):
