@@ -1,0 +1,200 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "description": "Mit dem myjudo.eu-Konto anmelden (dasselbe wie in der JUDO-App).",
+        "data": {
+          "username": "E-Mail",
+          "password": "Passwort"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Erneut anmelden",
+        "description": "Die Anmeldung für {username} wurde abgelehnt. Bitte das aktuelle Passwort eingeben.",
+        "data": {
+          "password": "Passwort"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "E-Mail oder Passwort ist falsch.",
+      "cannot_connect": "myjudo.eu ist nicht erreichbar.",
+      "unknown": "Unerwarteter Fehler."
+    },
+    "abort": {
+      "already_configured": "Dieses Konto ist bereits eingerichtet.",
+      "reauth_successful": "Anmeldung aktualisiert."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "data": {
+          "scan_interval": "Abfrageintervall",
+          "softwell_p": "Gerät ist eine SOFTwell P",
+          "sodium_input": "Natrium im Rohwasser",
+          "sodium_limit": "Natrium-Grenzwert"
+        },
+        "data_description": {
+          "softwell_p": "Die SOFTwell P hat keinen Leckageschutz und zählt das Gesamtwasser in einem anderen Register.",
+          "sodium_input": "Beim Wasserversorger erfragen. 0 schaltet die Natrium-Prüfung der Wunschwasserhärte ab.",
+          "sodium_limit": "Wunschwasserhärten, die diesen Wert überschreiten würden, werden abgelehnt (Deutschland: 200 mg/L)."
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "auth_failed": "myjudo.eu hat die Anmeldung abgelehnt.",
+    "update_failed": "Daten von myjudo.eu nicht lesbar: {error}",
+    "write_failed": "Befehl an myjudo.eu fehlgeschlagen: {error}",
+    "sodium_limit": "Diese Härte ergäbe {sodium} mg/L Natrium (Grenzwert {limit} mg/L). Mindestens {minimum} °dH wählen."
+  },
+  "entity": {
+    "binary_sensor": {
+      "online": {
+        "name": "Cloud-Verbindung"
+      },
+      "regeneration_running": {
+        "name": "Regeneration"
+      }
+    },
+    "button": {
+      "start_regeneration": {
+        "name": "Regeneration starten"
+      }
+    },
+    "number": {
+      "output_hardness": {
+        "name": "Wunschwasserhärte"
+      },
+      "salt_stock": {
+        "name": "Salzvorrat"
+      },
+      "sleep_mode": {
+        "name": "Sleepmode"
+      },
+      "max_flow": {
+        "name": "Max. Durchfluss"
+      },
+      "extraction_quantity": {
+        "name": "Max. Entnahmemenge"
+      },
+      "extraction_time": {
+        "name": "Max. Entnahmedauer"
+      }
+    },
+    "select": {
+      "holiday_mode": {
+        "name": "Urlaubsmodus",
+        "state": {
+          "off": "Aus",
+          "lock": "Absperren",
+          "mode_1": "Urlaubsmodus 1",
+          "mode_2": "Urlaubsmodus 2"
+        }
+      }
+    },
+    "sensor": {
+      "total_water": {
+        "name": "Gesamtwasser"
+      },
+      "soft_water": {
+        "name": "Weichwasser"
+      },
+      "hard_water": {
+        "name": "Hartwasser"
+      },
+      "water_flow": {
+        "name": "Durchfluss"
+      },
+      "input_hardness": {
+        "name": "Rohwasserhärte"
+      },
+      "salt_range": {
+        "name": "Salzreichweite"
+      },
+      "next_service": {
+        "name": "Nächste Wartung"
+      },
+      "regeneration_count": {
+        "name": "Regenerationen"
+      },
+      "battery": {
+        "name": "Batterie"
+      },
+      "last_message": {
+        "name": "Letzte Meldung",
+        "state": {
+          "w_20": "Leckageschutz geschlossen",
+          "w_21": "Leckageschutz geschlossen: max. Entnahmemenge überschritten",
+          "w_22": "Leckageschutz geschlossen: max. Entnahmedauer überschritten",
+          "w_23": "Leckageschutz geschlossen: max. Durchfluss überschritten",
+          "w_24": "Leckagesensor meldet Leckage",
+          "w_26": "Leckageschutz im Sleepmode",
+          "w_27": "Wartung fällig",
+          "w_28": "Salzvorrat prüfen",
+          "w_29": "Salzmangel",
+          "w_30": "Regeneration läuft",
+          "w_31": "Batterie schwach",
+          "w_32": "Batterie leer",
+          "w_40": "Störung: Regenerationsantrieb defekt",
+          "w_41": "Störung: Solestand zu hoch",
+          "w_42": "Störung: Füllventil fehlerhaft",
+          "w_43": "Störung: Leckageschutz defekt",
+          "w_46": "Leckageschutz im Sonderregelungsmodus",
+          "w_51": "Leckageschutz: max. Entnahmemenge überschritten",
+          "w_52": "Leckageschutz: max. Entnahmedauer überschritten",
+          "w_53": "Leckageschutz: max. Durchfluss überschritten",
+          "w_61": "Füllventil geschlossen: max. Füllzeit überschritten",
+          "w_62": "Füllventil geschlossen: max. Füllmenge überschritten",
+          "w_63": "Füllventil geschlossen: max. Füllzyklen überschritten",
+          "w_64": "Patrone verbraucht",
+          "w_65": "Störung: Drucksensor defekt",
+          "w_66": "Störung: Grundstellung",
+          "w_67": "Störung: Tastatur defekt",
+          "w_68": "Störung: Ventil undicht",
+          "w_69": "Leckageschutz im Sleepmode",
+          "w_70": "Leckageschutz geschlossen: Bodensensor meldet Leckage",
+          "w_71": "Lernmodus: geschlossen, max. Entnahmemenge überschritten",
+          "w_72": "Lernmodus: geschlossen, max. Durchfluss überschritten",
+          "w_73": "Lernmodus: geschlossen, max. Entnahmedauer überschritten",
+          "w_74": "Störung: Kugelventil defekt",
+          "w_151": "Leckagealarm: max. Entnahmemenge überschritten",
+          "w_152": "Leckagealarm: max. Entnahmedauer überschritten",
+          "w_153": "Leckagealarm: max. Durchfluss überschritten",
+          "w_251": "Urlaubsmodus: reduzierte Grenzwerte",
+          "w_253": "Urlaubsmodus: Leckageschutz geschlossen",
+          "e_1": "Fehler: Regenerationsantrieb",
+          "e_2": "Fehler: Solestand hoch",
+          "e_3": "Fehler: Nachfüllen",
+          "e_4": "Fehler: Wasserstopp-Antrieb",
+          "e_5": "Fehler: VSV",
+          "e_6": "Fehler: Leitwertmessung",
+          "e_7": "Fehler: Temperaturmessung",
+          "e_8": "Fehler: Weichwasserzähler",
+          "e_9": "Fehler: Rohwasserzähler",
+          "e_10": "Fehler: Rohhärte kleiner 2x Wunschhärte",
+          "e_11": "Fehler: Füllstandssensor nicht erkannt",
+          "e_12": "Fehler: oberer Füllstandssensor dauernd nass",
+          "e_13": "Fehler: Füllstandssensoren (Doppelfehler)",
+          "e_14": "Fehler: RS-485-Verbindung",
+          "other": "Sonstige Meldung"
+        }
+      },
+      "last_message_time": {
+        "name": "Zeitpunkt letzte Meldung"
+      },
+      "last_update": {
+        "name": "Letzte Geräteaktualisierung"
+      },
+      "last_regeneration": {
+        "name": "Letzte Regeneration"
+      }
+    },
+    "valve": {
+      "valve": {
+        "name": "Wasserzufuhr"
+      }
+    }
+  }
+}

@@ -1,0 +1,200 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "description": "Log in with your myjudo.eu account (the same one the JUDO app uses).",
+        "data": {
+          "username": "Email",
+          "password": "Password"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Log in again",
+        "description": "The login for {username} was rejected. Enter the current password.",
+        "data": {
+          "password": "Password"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Email or password is wrong.",
+      "cannot_connect": "myjudo.eu could not be reached.",
+      "unknown": "Unexpected error."
+    },
+    "abort": {
+      "already_configured": "This account is already set up.",
+      "reauth_successful": "Login updated."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "data": {
+          "scan_interval": "Update interval",
+          "softwell_p": "Device is a SOFTwell P",
+          "sodium_input": "Sodium in raw water",
+          "sodium_limit": "Sodium limit"
+        },
+        "data_description": {
+          "softwell_p": "SOFTwell P has no leakage protection and counts total water in a different register.",
+          "sodium_input": "Ask your water supplier. 0 turns the sodium check for the target hardness off.",
+          "sodium_limit": "Target hardness values that would exceed this are refused (Germany: 200 mg/L)."
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "auth_failed": "myjudo.eu rejected the login.",
+    "update_failed": "Could not read data from myjudo.eu: {error}",
+    "write_failed": "Could not send the command to myjudo.eu: {error}",
+    "sodium_limit": "This hardness would give {sodium} mg/L sodium (limit {limit} mg/L). Choose at least {minimum} °dH."
+  },
+  "entity": {
+    "binary_sensor": {
+      "online": {
+        "name": "Cloud connection"
+      },
+      "regeneration_running": {
+        "name": "Regeneration"
+      }
+    },
+    "button": {
+      "start_regeneration": {
+        "name": "Start regeneration"
+      }
+    },
+    "number": {
+      "output_hardness": {
+        "name": "Target hardness"
+      },
+      "salt_stock": {
+        "name": "Salt stock"
+      },
+      "sleep_mode": {
+        "name": "Sleep mode"
+      },
+      "max_flow": {
+        "name": "Max. flow"
+      },
+      "extraction_quantity": {
+        "name": "Max. extraction quantity"
+      },
+      "extraction_time": {
+        "name": "Max. extraction time"
+      }
+    },
+    "select": {
+      "holiday_mode": {
+        "name": "Holiday mode",
+        "state": {
+          "off": "Off",
+          "lock": "Shut off",
+          "mode_1": "Holiday mode 1",
+          "mode_2": "Holiday mode 2"
+        }
+      }
+    },
+    "sensor": {
+      "total_water": {
+        "name": "Total water"
+      },
+      "soft_water": {
+        "name": "Soft water"
+      },
+      "hard_water": {
+        "name": "Hard water"
+      },
+      "water_flow": {
+        "name": "Water flow"
+      },
+      "input_hardness": {
+        "name": "Raw water hardness"
+      },
+      "salt_range": {
+        "name": "Salt range"
+      },
+      "next_service": {
+        "name": "Next service"
+      },
+      "regeneration_count": {
+        "name": "Regenerations"
+      },
+      "battery": {
+        "name": "Battery"
+      },
+      "last_message": {
+        "name": "Last message",
+        "state": {
+          "w_20": "Leakage protection closed",
+          "w_21": "Leakage protection closed: max. quantity exceeded",
+          "w_22": "Leakage protection closed: max. duration exceeded",
+          "w_23": "Leakage protection closed: max. flow exceeded",
+          "w_24": "Leak sensor reports a leak",
+          "w_26": "Leakage protection in sleep mode",
+          "w_27": "Maintenance due",
+          "w_28": "Check salt supply",
+          "w_29": "Salt shortage",
+          "w_30": "Regeneration running",
+          "w_31": "Battery low",
+          "w_32": "Battery empty",
+          "w_40": "Fault: regeneration drive defective",
+          "w_41": "Fault: brine level too high",
+          "w_42": "Fault: filling valve malfunction",
+          "w_43": "Fault: leakage protection defective",
+          "w_46": "Leakage protection in special mode",
+          "w_51": "Leakage protection: max. quantity exceeded",
+          "w_52": "Leakage protection: max. duration exceeded",
+          "w_53": "Leakage protection: max. flow exceeded",
+          "w_61": "Filling valve closed: max. filling time exceeded",
+          "w_62": "Filling valve closed: max. filling quantity exceeded",
+          "w_63": "Filling valve closed: max. filling cycles exceeded",
+          "w_64": "Cartridge used up",
+          "w_65": "Fault: pressure sensor defective",
+          "w_66": "Fault: home position",
+          "w_67": "Fault: keypad defective",
+          "w_68": "Fault: valve leaking",
+          "w_69": "Leakage protection in sleep mode",
+          "w_70": "Leakage protection closed: floor sensor reports a leak",
+          "w_71": "Learning mode: closed, max. quantity exceeded",
+          "w_72": "Learning mode: closed, max. flow exceeded",
+          "w_73": "Learning mode: closed, max. duration exceeded",
+          "w_74": "Fault: ball valve defective",
+          "w_151": "Leak alarm: max. quantity exceeded",
+          "w_152": "Leak alarm: max. duration exceeded",
+          "w_153": "Leak alarm: max. flow exceeded",
+          "w_251": "Holiday mode: reduced limits",
+          "w_253": "Holiday mode: leakage protection closed",
+          "e_1": "Error: regeneration drive",
+          "e_2": "Error: brine level high",
+          "e_3": "Error: refilling",
+          "e_4": "Error: water stop drive",
+          "e_5": "Error: VSV",
+          "e_6": "Error: conductivity measurement",
+          "e_7": "Error: temperature measurement",
+          "e_8": "Error: soft water meter",
+          "e_9": "Error: raw water meter",
+          "e_10": "Error: raw hardness below twice the target",
+          "e_11": "Error: level sensor not detected",
+          "e_12": "Error: upper level sensor always wet",
+          "e_13": "Error: level sensors (double fault)",
+          "e_14": "Error: RS-485 connection",
+          "other": "Other message"
+        }
+      },
+      "last_message_time": {
+        "name": "Last message time"
+      },
+      "last_update": {
+        "name": "Last device update"
+      },
+      "last_regeneration": {
+        "name": "Last regeneration"
+      }
+    },
+    "valve": {
+      "valve": {
+        "name": "Water supply"
+      }
+    }
+  }
+}

@@ -1,0 +1,62 @@
+# The contents of this file is based on https://github.com/home-assistant/core/blob/dev/pyproject.toml
+
+target-version = "py312"
+
+[lint]
+select = [
+    "ALL",
+]
+
+ignore = [
+    "A001",
+    "ANN",
+    "ARG",
+    "BLE",
+    "COM812",
+    "CPY",
+    "D",
+    "E501",
+    "EM",
+    "FBT",
+    "FIX",
+    "G004",
+    "INP",
+    "ISC001",
+    "N801",
+    "PERF",
+    "PLR",
+    "RUF012",
+    "S501",
+    "TC",
+    "TD",
+    "TID252",
+    "TRY",
+]
+
+[lint.per-file-ignores]
+"tests/*" = [
+    "ARG",
+    "DTZ",
+    "S",
+    "SLF001",
+]
+"scripts/*" = [
+    "C408",
+    "INP001",
+    "PTH",
+    "T201",
+]
+
+[lint.isort]
+force-sort-within-sections = true
+known-first-party = ["custom_components.myjudo"]
+combine-as-imports = true
+
+[lint.flake8-pytest-style]
+fixture-parentheses = false
+
+[lint.pyupgrade]
+keep-runtime-typing = true
+
+[lint.mccabe]
+max-complexity = 25

@@ -1,0 +1,54 @@
+{
+  "data": [
+    {
+      "id": 1003,
+      "serialnumber": "0123456789ab",
+      "dt": "0x32",
+      "type": "w",
+      "error": 28,
+      "confirm_status": 1,
+      "ts": "22.02.2026 09:10:06",
+      "param": "",
+      "loc": null,
+      "ispro": 0,
+      "cs": 0,
+      "devicenumber": 100000,
+      "ts_sort": "2026-02-22 09:10:06.000000"
+    },
+    {
+      "id": 1002,
+      "serialnumber": "0123456789ab",
+      "dt": "0x32",
+      "type": "w",
+      "error": 28,
+      "confirm_status": 1,
+      "ts": "18.01.2026 09:13:48",
+      "param": "",
+      "loc": null,
+      "ispro": 0,
+      "cs": 0,
+      "devicenumber": 100000,
+      "ts_sort": "2026-01-18 09:13:48.000000"
+    },
+    {
+      "id": 1001,
+      "serialnumber": "0123456789ab",
+      "dt": "0x32",
+      "type": "w",
+      "error": 28,
+      "confirm_status": 1,
+      "ts": "24.11.2025 08:39:27",
+      "param": "",
+      "loc": null,
+      "ispro": 0,
+      "cs": 0,
+      "devicenumber": 100000,
+      "ts_sort": "2025-11-24 08:39:27.000000"
+    }
+  ],
+  "data_hash": "0",
+  "status": "ok",
+  "token": "TOKEN",
+  "count": 3,
+  "command": "get error messages"
+}

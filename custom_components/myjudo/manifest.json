@@ -1,0 +1,13 @@
+{
+  "domain": "myjudo",
+  "name": "JUDO myjudo",
+  "codeowners": ["@dMopp"],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/dMopp/ha-myjudo",
+  "integration_type": "hub",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/dMopp/ha-myjudo/issues",
+  "requirements": [],
+  "version": "0.1.0"
+}

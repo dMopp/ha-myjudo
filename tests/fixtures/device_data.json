@@ -1,0 +1,142 @@
+{
+  "data": [
+    {
+      "ewuid": "00000000-0000-0000-0000-000000000000",
+      "serialnumber": "0123456789ab",
+      "installation_date": "2020-01-01T10:00:00",
+      "status": "online",
+      "bct": "rs485",
+      "sv": "1.14",
+      "hv": "1.0",
+      "data": [
+        {
+          "da": "0x1",
+          "dt": "0x32",
+          "sv": "3.2n",
+          "hv": "5.10",
+          "data": {
+            "1": {
+              "data": "6E0203",
+              "st": "OK",
+              "er": ""
+            },
+            "2": {
+              "data": "0A05",
+              "st": "OK",
+              "er": ""
+            },
+            "3": {
+              "data": "B62C0200",
+              "st": "OK",
+              "er": ""
+            },
+            "5": {
+              "data": "110E5A0C",
+              "st": "OK",
+              "er": ""
+            },
+            "6": {
+              "data": "5A98FEC3",
+              "st": "OK",
+              "er": ""
+            },
+            "7": {
+              "data": "3C2107001500",
+              "st": "OK",
+              "er": ""
+            },
+            "8": {
+              "data": "712E0A00",
+              "st": "OK",
+              "er": ""
+            },
+            "9": {
+              "data": "C5B40600",
+              "st": "OK",
+              "er": ""
+            },
+            "10": {
+              "data": "00",
+              "st": "OK",
+              "er": ""
+            },
+            "12": {
+              "data": "00",
+              "st": "OK",
+              "er": ""
+            },
+            "14": {
+              "data": "110E5A0C",
+              "st": "OK",
+              "er": ""
+            },
+            "63": {
+              "data": "22",
+              "st": "OK",
+              "er": ""
+            },
+            "90": {
+              "data": "0F00",
+              "st": "OK",
+              "er": ""
+            },
+            "92": {
+              "data": "0000",
+              "st": "OK",
+              "er": ""
+            },
+            "93": {
+              "data": "000000000000000000",
+              "st": "OK",
+              "er": ""
+            },
+            "94": {
+              "data": "1450CD00",
+              "st": "OK",
+              "er": ""
+            },
+            "790": {
+              "data": "0:00010F100800100005040F000702A8000000000000006C4EB0040F0230004100",
+              "st": "OK",
+              "er": ""
+            },
+            "791": {
+              "data": "1:C00000000027930D0820E2000E01000081002E00000000006600910C61083805",
+              "st": "OK",
+              "er": ""
+            },
+            "792": {
+              "data": "2:003C1E000000000048000000B80B2C011E000006B80B2C01002B00001E000000",
+              "st": "OK",
+              "er": ""
+            },
+            "793": null,
+            "794": null,
+            "lu": "2026-10-28 22:56:31",
+            "df": 0
+          }
+        }
+      ],
+      "errors": [],
+      "waterscene_time": 1,
+      "waterscene_time_garden": 1,
+      "waterscene_time_heater": null,
+      "waterscene_time_washing": 2,
+      "waterscene": "normal",
+      "disable_time": "",
+      "waterscene_normal": 5,
+      "hardness_shower": 6,
+      "hardness_watering": 10,
+      "hardness_heater": 1,
+      "hardness_washing": 6,
+      "sleepmode_time": null,
+      "holiday_mode": null,
+      "update": "0",
+      "utc_offset": 99,
+      "auto_time_change": "0"
+    }
+  ],
+  "status": "ok",
+  "token": "TOKEN",
+  "command": "get device data"
+}
