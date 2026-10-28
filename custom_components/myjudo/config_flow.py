@@ -14,6 +14,9 @@ from homeassistant.helpers.selector import (
     NumberSelector,
     NumberSelectorConfig,
     NumberSelectorMode,
+    SelectSelector,
+    SelectSelectorConfig,
+    SelectSelectorMode,
     TextSelector,
     TextSelectorConfig,
     TextSelectorType,
@@ -22,14 +25,16 @@ import voluptuous as vol
 
 from .api import JudoAuthError, JudoClient, JudoError
 from .const import (
+    CONF_MODEL,
     CONF_SODIUM_INPUT,
     CONF_SODIUM_LIMIT,
-    CONF_SOFTWELL_P,
     DEFAULT_SCAN_INTERVAL,
     DEFAULT_SODIUM_INPUT,
     DEFAULT_SODIUM_LIMIT,
     DOMAIN,
     MIN_SCAN_INTERVAL,
+    MODEL_AUTO,
+    MODELS,
 )
 from .coordinator import JudoConfigEntry
 
@@ -53,6 +58,7 @@ class JudoConfigFlow(ConfigFlow, domain=DOMAIN):
     """Handle a config flow for JUDO myjudo."""
 
     VERSION = 1
+    MINOR_VERSION = 2
 
     async def _validate(self, username: str, password: str) -> str | None:
         """Try to log in. Return an error key or None."""
@@ -143,7 +149,13 @@ class JudoOptionsFlow(OptionsFlow):
                         mode=NumberSelectorMode.BOX,
                     )
                 ),
-                vol.Required(CONF_SOFTWELL_P, default=False): bool,
+                vol.Required(CONF_MODEL, default=MODEL_AUTO): SelectSelector(
+                    SelectSelectorConfig(
+                        options=MODELS,
+                        translation_key=CONF_MODEL,
+                        mode=SelectSelectorMode.DROPDOWN,
+                    )
+                ),
                 vol.Required(
                     CONF_SODIUM_INPUT, default=DEFAULT_SODIUM_INPUT
                 ): NumberSelector(

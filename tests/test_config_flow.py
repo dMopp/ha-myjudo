@@ -3,13 +3,18 @@
 from homeassistant import config_entries
 from homeassistant.const import CONF_PASSWORD, CONF_SCAN_INTERVAL, CONF_USERNAME
 from homeassistant.data_entry_flow import FlowResultType
+import pytest
+from pytest_homeassistant_custom_component.common import MockConfigEntry
 
 from custom_components.myjudo.api import BASE_URL
 from custom_components.myjudo.const import (
+    CONF_MODEL,
     CONF_SODIUM_INPUT,
     CONF_SODIUM_LIMIT,
     CONF_SOFTWELL_P,
     DOMAIN,
+    MODEL_AUTO,
+    MODEL_SOFTWELL_P,
 )
 
 USER_INPUT = {CONF_USERNAME: "JudoUser", CONF_PASSWORD: "secret"}
@@ -92,7 +97,7 @@ async def test_options(hass, setup_integration):
     assert result["type"] is FlowResultType.FORM
     options = {
         CONF_SCAN_INTERVAL: 60,
-        CONF_SOFTWELL_P: False,
+        CONF_MODEL: MODEL_SOFTWELL_P,
         CONF_SODIUM_INPUT: 7.74,
         CONF_SODIUM_LIMIT: 200,
     }
@@ -102,3 +107,22 @@ async def test_options(hass, setup_integration):
     assert result["type"] is FlowResultType.CREATE_ENTRY
     await hass.async_block_till_done()
     assert setup_integration.options == options
+
+
+@pytest.mark.parametrize(
+    ("old", "model"), [(True, MODEL_SOFTWELL_P), (False, MODEL_AUTO)]
+)
+async def test_migrate_softwell_option(hass, mock_api, old, model):
+    entry = MockConfigEntry(
+        domain=DOMAIN,
+        version=1,
+        minor_version=1,
+        unique_id="judouser",
+        data=USER_INPUT,
+        options={CONF_SOFTWELL_P: old},
+    )
+    entry.add_to_hass(hass)
+    assert await hass.config_entries.async_setup(entry.entry_id)
+    await hass.async_block_till_done()
+    assert entry.minor_version == 2
+    assert entry.options == {CONF_MODEL: model}

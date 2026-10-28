@@ -31,12 +31,12 @@
       "init": {
         "data": {
           "scan_interval": "Update interval",
-          "softwell_p": "Device is a SOFTwell P",
+          "model": "Model",
           "sodium_input": "Sodium in raw water",
           "sodium_limit": "Sodium limit"
         },
         "data_description": {
-          "softwell_p": "SOFTwell P has no leakage protection and counts total water in a different register.",
+          "model": "Selects which registers are read. Automatic detects a SOFTwell P by its missing leakage protection data.",
           "sodium_input": "Ask your water supplier. 0 turns the sodium check for the target hardness off.",
           "sodium_limit": "Target hardness values that would exceed this are refused (Germany: 200 mg/L)."
         }
@@ -202,6 +202,15 @@
     "valve": {
       "valve": {
         "name": "Water supply"
+      }
+    }
+  },
+  "selector": {
+    "model": {
+      "options": {
+        "auto": "Automatic",
+        "i_soft_safe": "i-soft safe / safe+",
+        "softwell_p": "SOFTwell P"
       }
     }
   }

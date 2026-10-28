@@ -31,12 +31,12 @@
       "init": {
         "data": {
           "scan_interval": "Abfrageintervall",
-          "softwell_p": "Gerät ist eine SOFTwell P",
+          "model": "Modell",
           "sodium_input": "Natrium im Rohwasser",
           "sodium_limit": "Natrium-Grenzwert"
         },
         "data_description": {
-          "softwell_p": "Die SOFTwell P hat keinen Leckageschutz und zählt das Gesamtwasser in einem anderen Register.",
+          "model": "Legt fest, welche Register gelesen werden. Automatisch erkennt eine SOFTwell P an den fehlenden Leckageschutz-Daten.",
           "sodium_input": "Beim Wasserversorger erfragen. 0 schaltet die Natrium-Prüfung der Wunschwasserhärte ab.",
           "sodium_limit": "Wunschwasserhärten, die diesen Wert überschreiten würden, werden abgelehnt (Deutschland: 200 mg/L)."
         }
@@ -202,6 +202,15 @@
     "valve": {
       "valve": {
         "name": "Wasserzufuhr"
+      }
+    }
+  },
+  "selector": {
+    "model": {
+      "options": {
+        "auto": "Automatisch",
+        "i_soft_safe": "i-soft safe / safe+",
+        "softwell_p": "SOFTwell P"
       }
     }
   }

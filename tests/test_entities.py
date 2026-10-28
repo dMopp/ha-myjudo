@@ -44,6 +44,10 @@ async def test_states(hass, setup_integration):
     assert state(hass, "valve", "valve").state == "open"
     assert state(hass, "binary_sensor", "online").state == "on"
     assert state(hass, "binary_sensor", "regeneration_running").state == "off"
+    # Register 93 is all zeros: no backup battery, so no entity
+    assert not er.async_get(hass).async_get_entity_id(
+        "sensor", DOMAIN, f"{SERIAL}_battery"
+    )
 
 
 async def test_unload(hass, setup_integration):

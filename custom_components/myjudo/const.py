@@ -5,7 +5,18 @@ from typing import Final
 DOMAIN: Final = "myjudo"
 MANUFACTURER: Final = "JUDO"
 
+CONF_MODEL: Final = "model"
+# Replaced by CONF_MODEL in config entry minor version 2
 CONF_SOFTWELL_P: Final = "softwell_p"
+
+MODEL_AUTO: Final = "auto"
+MODEL_I_SOFT_SAFE: Final = "i_soft_safe"
+MODEL_SOFTWELL_P: Final = "softwell_p"
+MODELS: Final = [MODEL_AUTO, MODEL_I_SOFT_SAFE, MODEL_SOFTWELL_P]
+MODEL_NAMES: Final = {
+    MODEL_I_SOFT_SAFE: "i-soft safe / safe+",
+    MODEL_SOFTWELL_P: "SOFTwell P",
+}
 CONF_SODIUM_INPUT: Final = "sodium_input"
 CONF_SODIUM_LIMIT: Final = "sodium_limit"
 

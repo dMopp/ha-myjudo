@@ -6,7 +6,7 @@ from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .api import JudoDevice
-from .const import DOMAIN, MANUFACTURER
+from .const import DOMAIN, MANUFACTURER, MODEL_NAMES
 from .coordinator import JudoCoordinator
 
 
@@ -27,7 +27,7 @@ class JudoEntity(CoordinatorEntity[JudoCoordinator]):
             identifiers={(DOMAIN, serial)},
             manufacturer=MANUFACTURER,
             name=MANUFACTURER,
-            model="SOFTwell P" if coordinator.softwell_p else None,
+            model=MODEL_NAMES.get(coordinator.model),
             model_id=device.dt or None,
             serial_number=serial,
             sw_version=device.sw_version,

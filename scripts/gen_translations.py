@@ -218,17 +218,14 @@ TEXT = {
             "init": {
                 "data": {
                     "scan_interval": ("Update interval", "Abfrageintervall"),
-                    "softwell_p": (
-                        "Device is a SOFTwell P",
-                        "Gerät ist eine SOFTwell P",
-                    ),
+                    "model": ("Model", "Modell"),
                     "sodium_input": ("Sodium in raw water", "Natrium im Rohwasser"),
                     "sodium_limit": ("Sodium limit", "Natrium-Grenzwert"),
                 },
                 "data_description": {
-                    "softwell_p": (
-                        "SOFTwell P has no leakage protection and counts total water in a different register.",
-                        "Die SOFTwell P hat keinen Leckageschutz und zählt das Gesamtwasser in einem anderen Register.",
+                    "model": (
+                        "Selects which registers are read. Automatic detects a SOFTwell P by its missing leakage protection data.",
+                        "Legt fest, welche Register gelesen werden. Automatisch erkennt eine SOFTwell P an den fehlenden Leckageschutz-Daten.",
                     ),
                     "sodium_input": (
                         "Ask your water supplier. 0 turns the sodium check for the target hardness off.",
@@ -263,6 +260,13 @@ TEXT = {
 }
 
 
+MODEL_OPTIONS = {
+    "auto": ("Automatic", "Automatisch"),
+    "i_soft_safe": ("i-soft safe / safe+", "i-soft safe / safe+"),
+    "softwell_p": ("SOFTwell P", "SOFTwell P"),
+}
+
+
 def pick(obj, idx):
     if isinstance(obj, tuple):
         return obj[idx]
@@ -277,6 +281,9 @@ def build(idx):
     entity["sensor"]["last_message"]["state"] = {k: v[idx] for k, v in MESSAGES.items()}
     entity["select"]["holiday_mode"]["state"] = {k: v[idx] for k, v in HOLIDAY.items()}
     out["entity"] = entity
+    out["selector"] = {
+        "model": {"options": {k: v[idx] for k, v in MODEL_OPTIONS.items()}}
+    }
     out["exceptions"] = {
         key: {"message": text} for key, text in out["exceptions"].items()
     }

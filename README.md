@@ -19,7 +19,7 @@ No MQTT broker, no AppDaemon, no extra hardware: log in with your myjudo.eu user
 | Button | Start regeneration |
 | Binary sensor | Cloud connection, regeneration running |
 
-Entities are only created for values your device reports. Several devices on one account are supported.
+Entities are only created for values your device reports (e.g. the battery only if a backup battery is fitted). Several devices on one account are supported.
 
 ## Installation
 
@@ -38,7 +38,7 @@ Copy `custom_components/myjudo` into your `config/custom_components` folder and 
 | Option | Default | Meaning |
 | --- | --- | --- |
 | Update interval | 30 s | How often myjudo.eu is polled (min. 15 s). |
-| Device is a SOFTwell P | off | SOFTwell P has no leakage protection and stores total water in another register. |
+| Model | Automatic | Selects which registers are read: *i-soft safe / safe+* or *SOFTwell P*. Automatic detects a SOFTwell P by its missing leakage protection data. |
 | Sodium in raw water | 0 mg/L | If set, target hardness values that would push sodium over the limit are refused. Ask your water supplier. 0 disables the check. |
 | Sodium limit | 200 mg/L | Legal limit in Germany. |
 

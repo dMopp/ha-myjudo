@@ -12,7 +12,13 @@ from homeassistant.exceptions import ConfigEntryAuthFailed, HomeAssistantError
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
 from .api import JudoAuthError, JudoClient, JudoConnectionError, JudoDevice, JudoError
-from .const import CONF_SOFTWELL_P, DEFAULT_SCAN_INTERVAL, DOMAIN
+from .const import (
+    CONF_MODEL,
+    DEFAULT_SCAN_INTERVAL,
+    DOMAIN,
+    MODEL_AUTO,
+    MODEL_SOFTWELL_P,
+)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -39,8 +45,15 @@ class JudoCoordinator(DataUpdateCoordinator[dict[str, JudoDevice]]):
         self.client = client
 
     @property
-    def softwell_p(self) -> bool:
-        return self.config_entry.options.get(CONF_SOFTWELL_P, False)
+    def model(self) -> str:
+        return self.config_entry.options.get(CONF_MODEL, MODEL_AUTO)
+
+    @property
+    def softwell_p(self) -> bool | None:
+        """Register layout to use; None lets the client detect it."""
+        if self.model == MODEL_AUTO:
+            return None
+        return self.model == MODEL_SOFTWELL_P
 
     async def _async_update_data(self) -> dict[str, JudoDevice]:
         try:

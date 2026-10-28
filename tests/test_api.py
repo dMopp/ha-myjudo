@@ -9,6 +9,7 @@ from custom_components.myjudo.api import (
     JudoAuthError,
     JudoClient,
     JudoConnectionError,
+    is_softwell_p,
     le_hex,
     parse_values,
 )
@@ -34,7 +35,7 @@ def test_parse_values(device_data):
         "salt_stock": 20.5,
         "salt_range": 205,
         "water_flow": 0,
-        "battery": 0,
+        "battery": None,
         "valve_closed": False,
         "sleep_mode": 0,
         "max_flow": 3000,
@@ -42,6 +43,22 @@ def test_parse_values(device_data):
         "extraction_time": 30,
         "holiday_mode": HOLIDAY_OFF,
     }
+
+
+def test_battery_only_with_data():
+    values = parse_values({"93": "000000550000000000"}, softwell_p=False)
+    assert values["battery"] == 0x55
+
+
+def test_is_softwell_p():
+    assert is_softwell_p({"9": "C5B40600"})
+    assert not is_softwell_p({"792": "2:00"})
+
+
+async def test_get_devices_auto_layout(hass, mock_api):
+    client = JudoClient(async_get_clientsession(hass), "judouser", "secret")
+    devices = await client.get_devices(softwell_p=None)
+    assert devices[SERIAL].values["valve_closed"] is False
 
 
 def test_parse_values_softwell_p_and_missing():

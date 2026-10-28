@@ -7,6 +7,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 from .api import JudoClient
+from .const import CONF_MODEL, CONF_SOFTWELL_P, MODEL_AUTO, MODEL_SOFTWELL_P
 from .coordinator import JudoConfigEntry, JudoCoordinator
 
 PLATFORMS: list[Platform] = [
@@ -32,6 +33,19 @@ async def async_setup_entry(hass: HomeAssistant, entry: JudoConfigEntry) -> bool
 
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
     entry.async_on_unload(entry.add_update_listener(_async_reload))
+    return True
+
+
+async def async_migrate_entry(hass: HomeAssistant, entry: JudoConfigEntry) -> bool:
+    """Migrate old config entries."""
+    if entry.version > 1:
+        return False
+    if entry.minor_version < 2:
+        # 1.2: the SOFTwell P checkbox became a model selection
+        options = dict(entry.options)
+        softwell_p = options.pop(CONF_SOFTWELL_P, False)
+        options[CONF_MODEL] = MODEL_SOFTWELL_P if softwell_p else MODEL_AUTO
+        hass.config_entries.async_update_entry(entry, options=options, minor_version=2)
     return True
 
 

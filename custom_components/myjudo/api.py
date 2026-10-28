@@ -107,6 +107,11 @@ def _parse_local(value: str | None, fmt: str) -> datetime | None:
         return None
 
 
+def is_softwell_p(registers: dict[str, str]) -> bool:
+    """Guess the register layout: SOFTwell P has no leakage protection data."""
+    return "792" not in registers
+
+
 def parse_values(registers: dict[str, str], softwell_p: bool) -> dict[str, Any]:
     """Turn raw registers into entity values. Missing registers give None."""
     v: dict[str, Any] = {}
@@ -133,7 +138,9 @@ def parse_values(registers: dict[str, str], softwell_p: bool) -> dict[str, Any]:
     v["salt_stock"] = None if salt is None else salt / 1000
     v["salt_range"] = _le(registers, 94, 4, 8)
     v["water_flow"] = _le(registers, 790, 34, 38)
-    v["battery"] = _le(registers, 93, 6, 8)
+    # Devices without a backup battery report the register as all zeros.
+    battery = registers.get("93", "")
+    v["battery"] = _le(registers, 93, 6, 8) if battery.strip("0") else None
     lock = _le(registers, 792, 2, 4)
     v["valve_closed"] = None if lock is None else lock > 0
     v["sleep_mode"] = _le(registers, 792, 20, 22)
@@ -222,8 +229,11 @@ class JudoClient:
             raise JudoConnectionError(f"Server answered: {data.get('data')}")
         raise JudoConnectionError("Unreachable")  # pragma: no cover
 
-    async def get_devices(self, softwell_p: bool) -> dict[str, JudoDevice]:
-        """Fetch all devices of the account."""
+    async def get_devices(self, softwell_p: bool | None) -> dict[str, JudoDevice]:
+        """Fetch all devices of the account.
+
+        softwell_p selects the register layout; None detects it per device.
+        """
         data = await self._authed({"command": "get device data"})
         devices: dict[str, JudoDevice] = {}
         for entry in data.get("data") or []:
@@ -246,7 +256,10 @@ class JudoClient:
                 hw_version=sub.get("hv"),
                 last_update=_parse_local(raw.get("lu"), "%Y-%m-%d %H:%M:%S"),
                 registers=registers,
-                values=parse_values(registers, softwell_p),
+                values=parse_values(
+                    registers,
+                    is_softwell_p(registers) if softwell_p is None else softwell_p,
+                ),
             )
         return devices
 
