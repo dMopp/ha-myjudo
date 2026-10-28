@@ -4,7 +4,7 @@
       "user": {
         "description": "Log in with your myjudo.eu account (the same one the JUDO app uses).",
         "data": {
-          "username": "Email",
+          "username": "Username",
           "password": "Password"
         }
       },
@@ -17,7 +17,7 @@
       }
     },
     "error": {
-      "invalid_auth": "Email or password is wrong.",
+      "invalid_auth": "Username or password is wrong.",
       "cannot_connect": "myjudo.eu could not be reached.",
       "unknown": "Unexpected error."
     },

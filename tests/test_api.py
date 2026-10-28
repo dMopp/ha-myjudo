@@ -60,7 +60,7 @@ def test_le_hex(value, bits, expected):
 
 
 async def test_get_devices_and_messages(hass, mock_api):
-    client = JudoClient(async_get_clientsession(hass), "user@example.com", "secret")
+    client = JudoClient(async_get_clientsession(hass), "judouser", "secret")
     devices = await client.get_devices(softwell_p=False)
     assert list(devices) == [SERIAL]
     device = devices[SERIAL]
@@ -85,7 +85,7 @@ async def test_relogin_on_expired_token(hass, aioclient_mock, device_data):
     aioclient_mock.get(
         f"{BASE_URL}?command=get+device+data&token=NEW", json=device_data
     )
-    client = JudoClient(async_get_clientsession(hass), "user@example.com", "secret")
+    client = JudoClient(async_get_clientsession(hass), "judouser", "secret")
     client._token = "OLD"
     devices = await client.get_devices(softwell_p=False)
     assert SERIAL in devices
@@ -95,13 +95,13 @@ async def test_login_rejected(hass, aioclient_mock):
     aioclient_mock.get(
         f"{BASE_URL}?command=login", json={"status": "error", "data": "login failed"}
     )
-    client = JudoClient(async_get_clientsession(hass), "user@example.com", "wrong")
+    client = JudoClient(async_get_clientsession(hass), "judouser", "wrong")
     with pytest.raises(JudoAuthError):
         await client.login()
 
 
 async def test_not_json(hass, aioclient_mock):
     aioclient_mock.get(f"{BASE_URL}?command=login", text="<html>maintenance</html>")
-    client = JudoClient(async_get_clientsession(hass), "user@example.com", "secret")
+    client = JudoClient(async_get_clientsession(hass), "judouser", "secret")
     with pytest.raises(JudoConnectionError):
         await client.login()

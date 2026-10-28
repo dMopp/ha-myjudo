@@ -4,7 +4,7 @@
       "user": {
         "description": "Mit dem myjudo.eu-Konto anmelden (dasselbe wie in der JUDO-App).",
         "data": {
-          "username": "E-Mail",
+          "username": "Benutzername",
           "password": "Passwort"
         }
       },
@@ -17,7 +17,7 @@
       }
     },
     "error": {
-      "invalid_auth": "E-Mail oder Passwort ist falsch.",
+      "invalid_auth": "Benutzername oder Passwort ist falsch.",
       "cannot_connect": "myjudo.eu ist nicht erreichbar.",
       "unknown": "Unerwarteter Fehler."
     },

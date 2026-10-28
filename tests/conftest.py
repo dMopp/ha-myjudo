@@ -56,9 +56,9 @@ def mock_api(
 def config_entry() -> MockConfigEntry:
     return MockConfigEntry(
         domain=DOMAIN,
-        title="user@example.com",
-        unique_id="user@example.com",
-        data={CONF_USERNAME: "user@example.com", CONF_PASSWORD: "secret"},
+        title="judouser",
+        unique_id="judouser",
+        data={CONF_USERNAME: "judouser", CONF_PASSWORD: "secret"},
     )
 
 

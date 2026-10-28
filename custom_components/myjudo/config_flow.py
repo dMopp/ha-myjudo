@@ -38,7 +38,7 @@ _LOGGER = logging.getLogger(__name__)
 USER_SCHEMA = vol.Schema(
     {
         vol.Required(CONF_USERNAME): TextSelector(
-            TextSelectorConfig(type=TextSelectorType.EMAIL, autocomplete="username")
+            TextSelectorConfig(type=TextSelectorType.TEXT, autocomplete="username")
         ),
         vol.Required(CONF_PASSWORD): TextSelector(
             TextSelectorConfig(

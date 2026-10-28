@@ -12,7 +12,7 @@ from custom_components.myjudo.const import (
     DOMAIN,
 )
 
-USER_INPUT = {CONF_USERNAME: "User@Example.com", CONF_PASSWORD: "secret"}
+USER_INPUT = {CONF_USERNAME: "JudoUser", CONF_PASSWORD: "secret"}
 
 
 async def test_user_flow(hass, mock_api):
@@ -25,9 +25,9 @@ async def test_user_flow(hass, mock_api):
         result["flow_id"], USER_INPUT
     )
     assert result["type"] is FlowResultType.CREATE_ENTRY
-    assert result["title"] == "User@Example.com"
+    assert result["title"] == "JudoUser"
     assert result["data"] == USER_INPUT
-    assert result["result"].unique_id == "user@example.com"
+    assert result["result"].unique_id == "judouser"
 
 
 async def test_user_flow_invalid_auth_then_ok(hass, aioclient_mock, mock_api):

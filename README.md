@@ -4,9 +4,9 @@
 
 Unofficial Home Assistant integration for JUDO water softeners with leakage protection (e.g. **i-soft safe**, **i-soft safe+**, **SOFTwell P**) that are connected to the **myjudo.eu** cloud, the same service the JUDO app uses.
 
-No MQTT broker, no AppDaemon, no extra hardware: log in with your myjudo.eu account and the integration polls the cloud.
+No MQTT broker, no AppDaemon, no extra hardware: log in with your myjudo.eu username and the integration polls the cloud.
 
-> Not affiliated with or endorsed by JUDO Wasseraufbereitung GmbH. The myjudo.eu interface is undocumented and may change at any time.
+> Not affiliated with or endorsed by JUDO Wasseraufbereitung GmbH. JUDO and the JUDO logo are trademarks of their owner. The myjudo.eu interface is undocumented and may change at any time.
 
 ## Features
 
