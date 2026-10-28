@@ -44,10 +44,18 @@
     }
   },
   "exceptions": {
-    "auth_failed": "myjudo.eu hat die Anmeldung abgelehnt.",
-    "update_failed": "Daten von myjudo.eu nicht lesbar: {error}",
-    "write_failed": "Befehl an myjudo.eu fehlgeschlagen: {error}",
-    "sodium_limit": "Diese Härte ergäbe {sodium} mg/L Natrium (Grenzwert {limit} mg/L). Mindestens {minimum} °dH wählen."
+    "auth_failed": {
+      "message": "myjudo.eu hat die Anmeldung abgelehnt."
+    },
+    "update_failed": {
+      "message": "Daten von myjudo.eu nicht lesbar: {error}"
+    },
+    "write_failed": {
+      "message": "Befehl an myjudo.eu fehlgeschlagen: {error}"
+    },
+    "sodium_limit": {
+      "message": "Diese Härte ergäbe {sodium} mg/L Natrium (Grenzwert {limit} mg/L). Mindestens {minimum} °dH wählen."
+    }
   },
   "entity": {
     "binary_sensor": {

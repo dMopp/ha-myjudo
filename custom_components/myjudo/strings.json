@@ -44,10 +44,18 @@
     }
   },
   "exceptions": {
-    "auth_failed": "myjudo.eu rejected the login.",
-    "update_failed": "Could not read data from myjudo.eu: {error}",
-    "write_failed": "Could not send the command to myjudo.eu: {error}",
-    "sodium_limit": "This hardness would give {sodium} mg/L sodium (limit {limit} mg/L). Choose at least {minimum} °dH."
+    "auth_failed": {
+      "message": "myjudo.eu rejected the login."
+    },
+    "update_failed": {
+      "message": "Could not read data from myjudo.eu: {error}"
+    },
+    "write_failed": {
+      "message": "Could not send the command to myjudo.eu: {error}"
+    },
+    "sodium_limit": {
+      "message": "This hardness would give {sodium} mg/L sodium (limit {limit} mg/L). Choose at least {minimum} °dH."
+    }
   },
   "entity": {
     "binary_sensor": {

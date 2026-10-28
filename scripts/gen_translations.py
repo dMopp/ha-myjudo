@@ -277,6 +277,9 @@ def build(idx):
     entity["sensor"]["last_message"]["state"] = {k: v[idx] for k, v in MESSAGES.items()}
     entity["select"]["holiday_mode"]["state"] = {k: v[idx] for k, v in HOLIDAY.items()}
     out["entity"] = entity
+    out["exceptions"] = {
+        key: {"message": text} for key, text in out["exceptions"].items()
+    }
     return out
 
 
