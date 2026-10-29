@@ -87,7 +87,7 @@ async def test_get_devices_and_messages(hass, mock_api):
 
     messages = await client.get_latest_messages()
     msg = messages[SERIAL]
-    assert (msg.type, msg.code, msg.id) == ("w", "28", 1003)
+    assert (msg.msg_type, msg.code, msg.id) == ("w", "28", 1003)
     assert msg.timestamp.isoformat() == "2026-02-22T09:10:06+01:00"
 
 

@@ -170,15 +170,15 @@ class JudoMessageSensor(JudoEntity, SensorEntity):
         msg = self.device.message
         if msg is None:
             return None
-        code = f"{msg.type}_{msg.code}"
-        return code if code in MESSAGE_CODES else "other"
+        code = f"{msg.msg_type}_{msg.code}"
+        return code if code in MESSAGE_CODES else f"unknown_{msg.code}"
 
     @property
     def extra_state_attributes(self) -> dict[str, Any] | None:
         msg = self.device.message
         if msg is None:
             return None
-        return {"type": msg.type, "code": msg.code, "message_id": msg.id}
+        return {"msg_type": msg.msg_type, "code": msg.code, "message_id": msg.id}
 
 
 class JudoLastRegenerationSensor(JudoEntity, RestoreSensor):

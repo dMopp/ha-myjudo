@@ -62,7 +62,7 @@ class JudoMessage:
     """Latest warning or error from the device message log."""
 
     id: int
-    type: str
+    msg_type: str
     code: str
     timestamp: datetime | None
 
@@ -102,7 +102,10 @@ def _parse_local(value: str | None, fmt: str) -> datetime | None:
     if not value:
         return None
     try:
-        return datetime.strptime(value, fmt).replace(tzinfo=JUDO_TZ)
+        dt = datetime.strptime(value, fmt)
+        if dt.tzinfo is not None:
+            return dt
+        return dt.replace(tzinfo=JUDO_TZ)
     except ValueError:
         return None
 
@@ -274,7 +277,7 @@ class JudoClient:
             ts = entry.get("ts_sort") or ""
             latest[serial] = JudoMessage(
                 id=int(entry.get("id", 0)),
-                type=str(entry.get("type", "")),
+                msg_type=str(entry.get("type", "")),
                 code=str(entry.get("error", "")),
                 timestamp=_parse_local(ts.split(".")[0], "%Y-%m-%d %H:%M:%S"),
             )

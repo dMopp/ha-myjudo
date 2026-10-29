@@ -85,8 +85,15 @@ class JudoCoordinator(DataUpdateCoordinator[dict[str, JudoDevice]]):
 
     async def async_write(self, serial: str, index: int, data: str = "") -> None:
         """Write a register and raise a user-facing error on failure."""
+        device = self.data.get(serial) if self.data else None
+        if device is None:
+            raise HomeAssistantError(
+                translation_domain=DOMAIN,
+                translation_key="device_not_found",
+                translation_placeholders={"serial": serial},
+            )
         try:
-            await self.client.write(self.data[serial], index, data)
+            await self.client.write(device, index, data)
         except JudoError as err:
             raise HomeAssistantError(
                 translation_domain=DOMAIN,
@@ -96,5 +103,8 @@ class JudoCoordinator(DataUpdateCoordinator[dict[str, JudoDevice]]):
 
     def set_optimistic(self, serial: str, key: str, value: object) -> None:
         """Show a written value right away; the next poll confirms it."""
-        self.data[serial].values[key] = value
+        device = self.data.get(serial) if self.data else None
+        if device is None:
+            return
+        device.values[key] = value
         self.async_update_listeners()

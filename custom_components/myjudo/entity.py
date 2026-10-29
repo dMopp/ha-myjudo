@@ -22,7 +22,9 @@ class JudoEntity(CoordinatorEntity[JudoCoordinator]):
         self.serial = serial
         self._attr_unique_id = f"{serial}_{key}"
         self._attr_translation_key = key
-        device = coordinator.data[serial]
+        device = coordinator.data.get(serial)
+        if device is None:
+            raise ValueError(f"Device {serial} not found in coordinator data")
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, serial)},
             manufacturer=MANUFACTURER,
@@ -36,17 +38,23 @@ class JudoEntity(CoordinatorEntity[JudoCoordinator]):
 
     @property
     def device(self) -> JudoDevice:
-        return self.coordinator.data[self.serial]
+        return self.coordinator.data.get(self.serial)
 
     @property
     def available(self) -> bool:
-        if not super().available or self.serial not in self.coordinator.data:
+        if not super().available:
+            return False
+        device = self.device
+        if device is None:
             return False
         if self.value_key is None:
             return True
-        return self.device.values.get(self.value_key) is not None
+        return device.values.get(self.value_key) is not None
 
 
 def has_value(coordinator: JudoCoordinator, serial: str, key: str) -> bool:
     """Only create entities for values the device actually reports."""
-    return coordinator.data[serial].values.get(key) is not None
+    device = coordinator.data.get(serial)
+    if device is None:
+        return False
+    return device.values.get(key) is not None
