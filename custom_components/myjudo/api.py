@@ -172,7 +172,9 @@ class JudoClient:
     ) -> None:
         self._session = session
         self._username = username
-        self._password_md5 = hashlib.md5(password.encode("utf-8")).hexdigest()  # noqa: S324 - required by the API
+        self._password_md5 = hashlib.md5(  # the API expects the MD5 of the password
+            password.encode("utf-8"), usedforsecurity=False
+        ).hexdigest()
         self._token: str | None = None
 
     async def _request(self, params: dict[str, Any]) -> dict[str, Any]:
