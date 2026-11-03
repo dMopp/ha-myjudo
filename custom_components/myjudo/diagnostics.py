@@ -11,7 +11,8 @@ from homeassistant.core import HomeAssistant
 
 from .coordinator import JudoConfigEntry
 
-TO_REDACT = {CONF_PASSWORD, CONF_USERNAME, "serial"}
+# title and unique_id hold the myjudo.eu login name (see config_flow.py)
+TO_REDACT = {CONF_PASSWORD, CONF_USERNAME, "serial", "title", "unique_id"}
 
 
 async def async_get_config_entry_diagnostics(
