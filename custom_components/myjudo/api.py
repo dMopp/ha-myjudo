@@ -102,7 +102,8 @@ def _parse_local(value: str | None, fmt: str) -> datetime | None:
     if not value:
         return None
     try:
-        dt = datetime.strptime(value, fmt)
+        # fmt may carry %z; naive results get JUDO_TZ below
+        dt = datetime.strptime(value, fmt)  # noqa: DTZ007
         if dt.tzinfo is not None:
             return dt
         return dt.replace(tzinfo=JUDO_TZ)
