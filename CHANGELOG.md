@@ -1,5 +1,10 @@
 # Changelog
 
+## [Unreleased]
+
+### Fixed
+- Diagnostics now also redact the config entry `title` and `unique_id`, which contain the myjudo.eu login name
+
 ## [0.2.0] - 2026-10-29
 
 ### Changed
