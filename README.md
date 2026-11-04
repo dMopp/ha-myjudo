@@ -1,6 +1,6 @@
 # JUDO myjudo for Home Assistant
 
-[![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://hacs.xyz)
+[![hacs_badge](https://img.shields.io/badge/HACS-Default-41BDF5.svg)](https://hacs.xyz)
 
 Unofficial Home Assistant integration for JUDO water softeners with leakage protection (e.g. **i-soft safe**, **i-soft safe+**, **SOFTwell P**) that are connected to the **myjudo.eu** cloud, the same service the JUDO app uses.
 
@@ -25,9 +25,15 @@ Entities are only created for values your device reports (e.g. the battery only 
 
 ### HACS
 
-1. HACS → ⋮ → *Custom repositories* → add `https://github.com/dMopp/ha-myjudo`, category *Integration*.
-2. Install **JUDO myjudo** and restart Home Assistant.
+JUDO myjudo is in the HACS default store, no custom repository needed.
+
+[![Open your Home Assistant instance and open this repository in HACS.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=dMopp&repository=ha-myjudo&category=integration)
+
+1. Click the button above, or search HACS for **JUDO myjudo**.
+2. Install it and restart Home Assistant.
 3. *Settings → Devices & services → Add integration → JUDO myjudo*.
+
+If you added this repository as a custom repository before it was in the store, you can remove that entry in HACS → ⋮ → *Custom repositories*; the installed integration keeps working.
 
 ### Manual
 
