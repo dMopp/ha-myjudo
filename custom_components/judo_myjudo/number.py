@@ -70,8 +70,10 @@ async def _write_sleep_mode(
 ) -> None:
     hours = int(value)
     if hours == 0:
-        # Opening the valve ends the sleep mode.
-        await coordinator.async_write(serial, CMD_OPEN_VALVE)
+        # Opening the valve ends the sleep mode. Without an active sleep mode
+        # it must not reopen a valve closed by the leakage protection.
+        if coordinator.data[serial].values.get("sleep_mode"):
+            await coordinator.async_write(serial, CMD_OPEN_VALVE)
         return
     # First set the duration, then an empty write starts the sleep mode.
     await coordinator.async_write(serial, CMD_SLEEP_MODE, str(hours))
