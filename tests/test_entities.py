@@ -160,6 +160,18 @@ async def test_valve_select_button(hass, setup_integration, mock_api):
     assert state(hass, "binary_sensor", "regeneration_running").state == "on"
 
 
+async def test_holiday_off_keeps_valve_closed(hass, setup_integration, mock_api):
+    select = entity_id(hass, "select", "holiday_mode")
+    for option in ("mode_1", "off"):
+        await hass.services.async_call(
+            "select",
+            "select_option",
+            {ATTR_ENTITY_ID: select, "option": option},
+            blocking=True,
+        )
+    assert writes(mock_api) == [("77", "3"), ("77", "0")]
+
+
 async def test_write_error(hass, setup_integration, aioclient_mock, device_data):
     aioclient_mock.clear_requests()
     aioclient_mock.get(
