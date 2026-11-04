@@ -2,7 +2,7 @@
 
 from typing import Final
 
-DOMAIN: Final = "myjudo"
+DOMAIN: Final = "judo_myjudo"
 MANUFACTURER: Final = "JUDO"
 
 CONF_MODEL: Final = "model"

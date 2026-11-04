@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.3.0] - 2026-11-04
+
+### Changed
+- **Breaking:** the integration domain is now `judo_myjudo` (folder `custom_components/judo_myjudo`) instead of `myjudo`, which is already used by another integration in the HACS catalog. To migrate an existing install: remove the JUDO myjudo integration in Home Assistant, delete `config/custom_components/myjudo`, update via HACS, restart and add the integration again. Entity IDs may change.
+
 ## [0.2.1] - 2026-11-03
 
 ### Fixed

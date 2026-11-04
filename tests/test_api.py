@@ -3,7 +3,7 @@
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 import pytest
 
-from custom_components.myjudo.api import (
+from custom_components.judo_myjudo.api import (
     BASE_URL,
     HOLIDAY_OFF,
     JudoAuthError,

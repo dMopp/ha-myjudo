@@ -6,8 +6,12 @@ from homeassistant.exceptions import HomeAssistantError, ServiceValidationError
 from homeassistant.helpers import entity_registry as er
 import pytest
 
-from custom_components.myjudo.api import BASE_URL
-from custom_components.myjudo.const import CONF_SODIUM_INPUT, CONF_SODIUM_LIMIT, DOMAIN
+from custom_components.judo_myjudo.api import BASE_URL
+from custom_components.judo_myjudo.const import (
+    CONF_SODIUM_INPUT,
+    CONF_SODIUM_LIMIT,
+    DOMAIN,
+)
 
 from .conftest import SERIAL, writes
 

@@ -12,8 +12,8 @@ import pytest
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 from pytest_homeassistant_custom_component.test_util.aiohttp import AiohttpClientMocker
 
-from custom_components.myjudo.api import BASE_URL
-from custom_components.myjudo.const import DOMAIN
+from custom_components.judo_myjudo.api import BASE_URL
+from custom_components.judo_myjudo.const import DOMAIN
 
 FIXTURES = Path(__file__).parent / "fixtures"
 SERIAL = "0123456789ab"

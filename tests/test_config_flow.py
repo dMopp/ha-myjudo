@@ -6,8 +6,8 @@ from homeassistant.data_entry_flow import FlowResultType
 import pytest
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 
-from custom_components.myjudo.api import BASE_URL
-from custom_components.myjudo.const import (
+from custom_components.judo_myjudo.api import BASE_URL
+from custom_components.judo_myjudo.const import (
     CONF_MODEL,
     CONF_SODIUM_INPUT,
     CONF_SODIUM_LIMIT,
