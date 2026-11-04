@@ -31,7 +31,7 @@ Entities are only created for values your device reports (e.g. the battery only 
 
 ### Manual
 
-Copy `custom_components/myjudo` into your `config/custom_components` folder and restart Home Assistant.
+Copy `custom_components/judo_myjudo` into your `config/custom_components` folder and restart Home Assistant.
 
 ## Options
 

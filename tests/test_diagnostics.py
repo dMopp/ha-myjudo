@@ -2,7 +2,7 @@
 
 from homeassistant.components.diagnostics import REDACTED
 
-from custom_components.myjudo.diagnostics import async_get_config_entry_diagnostics
+from custom_components.judo_myjudo.diagnostics import async_get_config_entry_diagnostics
 
 
 async def test_diagnostics_redacts_account(hass, setup_integration):

@@ -1,9 +1,9 @@
-"""Generate strings.json and translations/*.json for the myjudo integration."""
+"""Generate strings.json and translations/*.json for the judo_myjudo integration."""
 
 import json
 from pathlib import Path
 
-ROOT = Path(__file__).parent.parent / "custom_components" / "myjudo"
+ROOT = Path(__file__).parent.parent / "custom_components" / "judo_myjudo"
 
 # Message code mapped to the English and German text
 MESSAGES = {
