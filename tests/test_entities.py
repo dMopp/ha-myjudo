@@ -101,6 +101,14 @@ async def test_sleep_mode(hass, setup_integration, mock_api):
     assert writes(mock_api) == [("171", "4"), ("171", ""), ("73", "")]
 
 
+async def test_sleep_mode_off_keeps_valve_closed(hass, setup_integration, mock_api):
+    eid = entity_id(hass, "number", "sleep_mode")
+    await hass.services.async_call(
+        "number", "set_value", {ATTR_ENTITY_ID: eid, "value": 0}, blocking=True
+    )
+    assert writes(mock_api) == []
+
+
 async def test_sodium_limit(hass, setup_integration, mock_api):
     hass.config_entries.async_update_entry(
         setup_integration, options={CONF_SODIUM_INPUT: 7.74, CONF_SODIUM_LIMIT: 100}
@@ -158,6 +166,18 @@ async def test_valve_select_button(hass, setup_integration, mock_api):
         ("65", ""),
     ]
     assert state(hass, "binary_sensor", "regeneration_running").state == "on"
+
+
+async def test_holiday_off_keeps_valve_closed(hass, setup_integration, mock_api):
+    select = entity_id(hass, "select", "holiday_mode")
+    for option in ("mode_1", "off"):
+        await hass.services.async_call(
+            "select",
+            "select_option",
+            {ATTR_ENTITY_ID: select, "option": option},
+            blocking=True,
+        )
+    assert writes(mock_api) == [("77", "3"), ("77", "0")]
 
 
 async def test_write_error(hass, setup_integration, aioclient_mock, device_data):

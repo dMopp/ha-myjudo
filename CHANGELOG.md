@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.3.1] - 2026-11-04
+
+### Fixed
+- Switching holiday mode to "off" only reopens the valve when leaving the "lock" variant. Before, it always sent the open command, so leaving holiday mode 1 or 2 could reopen a valve that the leakage protection had closed after a leak alarm
+- Setting the sleep mode to 0 only opens the valve when a sleep mode is running. Before, it always sent the open command, with the same risk of reopening a valve closed by the leakage protection
+
 ## [0.3.0] - 2026-11-04
 
 ### Changed

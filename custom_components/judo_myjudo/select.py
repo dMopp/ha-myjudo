@@ -6,7 +6,13 @@ from homeassistant.components.select import SelectEntity
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
-from .api import CMD_HOLIDAY_MODE, CMD_OPEN_VALVE, HOLIDAY_OFF, HOLIDAY_TO_RAW
+from .api import (
+    CMD_HOLIDAY_MODE,
+    CMD_OPEN_VALVE,
+    HOLIDAY_LOCK,
+    HOLIDAY_OFF,
+    HOLIDAY_TO_RAW,
+)
 from .coordinator import JudoConfigEntry
 from .entity import JudoEntity, has_value
 
@@ -37,8 +43,9 @@ class JudoHolidaySelect(JudoEntity, SelectEntity):
         return self.device.values.get(self.value_key)
 
     async def async_select_option(self, option: str) -> None:
-        if option == HOLIDAY_OFF:
-            # Leaving the "lock" variant needs the valve opened first.
+        if option == HOLIDAY_OFF and self.current_option == HOLIDAY_LOCK:
+            # Leaving the "lock" variant needs the valve opened first. Other
+            # variants must not reopen a valve closed by the leakage protection.
             await self.coordinator.async_write(self.serial, CMD_OPEN_VALVE)
         await self.coordinator.async_write(
             self.serial, CMD_HOLIDAY_MODE, str(HOLIDAY_TO_RAW[option])
