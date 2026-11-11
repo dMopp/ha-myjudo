@@ -11,7 +11,7 @@ from homeassistant.core import HomeAssistant
 
 from .coordinator import JudoConfigEntry
 
-# title and unique_id hold the myjudo.eu login name (see config_flow.py)
+# title and unique_id hold the JU-Control login name (see config_flow.py)
 TO_REDACT = {CONF_PASSWORD, CONF_USERNAME, "serial", "title", "unique_id"}
 
 

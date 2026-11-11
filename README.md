@@ -2,11 +2,11 @@
 
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-41BDF5.svg)](https://hacs.xyz)
 
-Unofficial Home Assistant integration for JUDO water softeners with leakage protection (e.g. **i-soft safe**, **i-soft safe+**, **SOFTwell P**) that are connected to the **myjudo.eu** cloud, the same service the JUDO app uses.
+Unofficial Home Assistant integration for JUDO water softeners with leakage protection (e.g. **i-soft safe**, **i-soft safe+**, **SOFTwell P**) that are connected to JUDO's **JU-Control** cloud, the same service the [JU-Control app](https://www.ju-control.app) uses.
 
-No MQTT broker, no AppDaemon, no extra hardware: log in with your myjudo.eu username and the integration polls the cloud.
+No MQTT broker, no AppDaemon, no extra hardware: log in with your JU-Control account and the integration polls the cloud. The JU-Control app, ju-control.app and the older myjudo.eu website share the same login and server (`www.myjudo.eu/interface/`), so existing myjudo.eu accounts keep working.
 
-> Not affiliated with or endorsed by JUDO Wasseraufbereitung GmbH. JUDO and the JUDO logo are trademarks of their owner. The myjudo.eu interface is undocumented and may change at any time.
+> Not affiliated with or endorsed by JUDO Wasseraufbereitung GmbH. JUDO and the JUDO logo are trademarks of their owner. The JU-Control cloud interface is undocumented and may change at any time.
 
 ## Features
 
@@ -43,12 +43,16 @@ Copy `custom_components/judo_myjudo` into your `config/custom_components` folder
 
 | Option | Default | Meaning |
 | --- | --- | --- |
-| Update interval | 30 s | How often myjudo.eu is polled (min. 15 s). |
+| Update interval | 30 s | How often the JU-Control cloud is polled (min. 15 s). |
 | Model | Automatic | Selects which registers are read: *i-soft safe / safe+* or *SOFTwell P*. Automatic detects a SOFTwell P by its missing leakage protection data. |
 | Sodium in raw water | 0 mg/L | If set, target hardness values that would push sodium over the limit are refused. Ask your water supplier. 0 disables the check. |
 | Sodium limit | 200 mg/L | Legal limit in Germany. |
 
 Daily or monthly consumption: create a *Utility meter* helper on the *Total water* sensor.
+
+## Login problems and cloud maintenance
+
+The cloud also rejects valid logins while JUDO maintains its servers. The integration therefore keeps retrying for an hour and only then asks for the password again (a notice appears under *Settings → Devices & services*). As soon as a login works again, the entities come back by themselves and an open password prompt is withdrawn.
 
 ## Migrating from the getjudo AppDaemon/MQTT script
 
@@ -58,7 +62,7 @@ Daily or monthly consumption: create a *Utility meter* helper on the *Total wate
 
 ## Credits
 
-Register map and commands are based on the community project [Judo-i-soft-save-plus-to-mqtt-bridge](https://github.com/www-ShapeLabs-de/Judo-i-soft-save-plus-to-mqtt-bridge) (getjudo) by ShapeLabs, which reverse-engineered the myjudo.eu interface. No code from it is included.
+Register map and commands are based on the community project [Judo-i-soft-save-plus-to-mqtt-bridge](https://github.com/www-ShapeLabs-de/Judo-i-soft-save-plus-to-mqtt-bridge) (getjudo) by ShapeLabs, which reverse-engineered the cloud interface. Login and register decoding were checked against the JU-Control web app. No code from either is included.
 
 Written with the help of an AI assistant.
 

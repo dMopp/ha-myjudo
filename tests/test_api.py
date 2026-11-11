@@ -1,4 +1,4 @@
-"""Tests for the myjudo.eu client and register parsing."""
+"""Tests for the JU-Control cloud client and register parsing."""
 
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 import pytest
@@ -106,6 +106,21 @@ async def test_relogin_on_expired_token(hass, aioclient_mock, device_data):
     client._token = "OLD"
     devices = await client.get_devices(softwell_p=False)
     assert SERIAL in devices
+
+
+async def test_login_like_ju_control(hass, aioclient_mock):
+    """Login sends what the JU-Control web app sends: MD5 password and app key."""
+    aioclient_mock.get(
+        f"{BASE_URL}?command=login", json={"status": "ok", "token": "TOKEN"}
+    )
+    client = JudoClient(async_get_clientsession(hass), "judouser", "secret")
+    await client.login()
+    _method, url, _data, _headers = aioclient_mock.mock_calls[0]
+    assert url.query["user"] == "judouser"
+    assert url.query["password"] == "5ebe2294ecd0e0f08eab7690d2a6ee69"
+    assert url.query["role"] == "customer"
+    assert url.query["application"] == "JC"
+    assert "nohash" not in url.query
 
 
 async def test_login_rejected(hass, aioclient_mock):

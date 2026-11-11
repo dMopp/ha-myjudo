@@ -1,9 +1,12 @@
 """Tests for setup, entity states and commands."""
 
-from homeassistant.config_entries import ConfigEntryState
+from datetime import timedelta
+
+from homeassistant.config_entries import SOURCE_REAUTH, ConfigEntryState
 from homeassistant.const import ATTR_ENTITY_ID
 from homeassistant.exceptions import HomeAssistantError, ServiceValidationError
 from homeassistant.helpers import entity_registry as er
+from homeassistant.util import dt as dt_util
 import pytest
 
 from custom_components.judo_myjudo.api import BASE_URL
@@ -12,6 +15,7 @@ from custom_components.judo_myjudo.const import (
     CONF_SODIUM_LIMIT,
     DOMAIN,
 )
+from custom_components.judo_myjudo.coordinator import AUTH_FAILED_SINCE, AUTH_GRACE
 
 from .conftest import SERIAL, writes
 
@@ -59,16 +63,70 @@ async def test_unload(hass, setup_integration):
     assert setup_integration.state is ConfigEntryState.NOT_LOADED
 
 
-async def test_auth_failure_starts_reauth(hass, config_entry, aioclient_mock):
+def reauth_flows(hass) -> list:
+    return [
+        f
+        for f in hass.config_entries.flow.async_progress()
+        if f["context"]["source"] == SOURCE_REAUTH
+    ]
+
+
+async def test_rejected_login_retries_first(hass, config_entry, aioclient_mock):
+    """A rejected login (e.g. during JUDO maintenance) is retried, no prompt yet."""
     aioclient_mock.get(
         f"{BASE_URL}?command=login", json={"status": "error", "data": "login failed"}
     )
     config_entry.add_to_hass(hass)
     await hass.config_entries.async_setup(config_entry.entry_id)
     await hass.async_block_till_done()
-    assert config_entry.state is ConfigEntryState.SETUP_ERROR
-    flows = hass.config_entries.flow.async_progress()
-    assert any(f["context"]["source"] == "reauth" for f in flows)
+    assert config_entry.state is ConfigEntryState.SETUP_RETRY
+    assert not reauth_flows(hass)
+    assert config_entry.entry_id in hass.data[AUTH_FAILED_SINCE]
+
+
+async def test_rejected_login_asks_after_grace(hass, config_entry, aioclient_mock):
+    aioclient_mock.get(
+        f"{BASE_URL}?command=login", json={"status": "error", "data": "login failed"}
+    )
+    hass.data[AUTH_FAILED_SINCE] = {
+        config_entry.entry_id: dt_util.utcnow() - AUTH_GRACE - timedelta(minutes=1)
+    }
+    config_entry.add_to_hass(hass)
+    await hass.config_entries.async_setup(config_entry.entry_id)
+    await hass.async_block_till_done()
+    assert config_entry.state is ConfigEntryState.SETUP_RETRY
+    assert reauth_flows(hass)
+
+
+async def test_login_recovers_and_drops_prompt(hass, config_entry, mock_api):
+    """Once the cloud accepts the login again, the password prompt goes away."""
+    hass.data[AUTH_FAILED_SINCE] = {
+        config_entry.entry_id: dt_util.utcnow() - AUTH_GRACE - timedelta(minutes=1)
+    }
+    config_entry.add_to_hass(hass)
+    config_entry.async_start_reauth(hass)
+    await hass.async_block_till_done()
+    assert reauth_flows(hass)
+
+    assert await hass.config_entries.async_setup(config_entry.entry_id)
+    await hass.async_block_till_done()
+    assert config_entry.state is ConfigEntryState.LOADED
+    assert not reauth_flows(hass)
+    assert config_entry.entry_id not in hass.data[AUTH_FAILED_SINCE]
+
+
+async def test_rejected_login_while_running(hass, setup_integration, aioclient_mock):
+    """Entities go unavailable while logins fail and come back afterwards."""
+    coordinator = setup_integration.runtime_data
+    coordinator.client._token = None
+    aioclient_mock.clear_requests()
+    aioclient_mock.get(
+        f"{BASE_URL}?command=login", json={"status": "error", "data": "login failed"}
+    )
+    await coordinator.async_refresh()
+    await hass.async_block_till_done()
+    assert state(hass, "sensor", "total_water").state == "unavailable"
+    assert not reauth_flows(hass)
 
 
 async def test_offline_cloud_retries(hass, config_entry, aioclient_mock):

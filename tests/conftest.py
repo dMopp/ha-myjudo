@@ -42,7 +42,7 @@ def error_messages() -> dict[str, Any]:
 def mock_api(
     aioclient_mock: AiohttpClientMocker, device_data, error_messages
 ) -> AiohttpClientMocker:
-    """Answer login, device data, message log and writes like myjudo.eu does."""
+    """Answer login, device data, message log and writes like the JU-Control cloud does."""
     aioclient_mock.get(
         f"{BASE_URL}?command=login", json={"status": "ok", "token": "TOKEN"}
     )

@@ -177,8 +177,8 @@ TEXT = {
         "step": {
             "user": {
                 "description": (
-                    "Log in with your myjudo.eu account (the same one the JUDO app uses).",
-                    "Mit dem myjudo.eu-Konto anmelden (dasselbe wie in der JUDO-App).",
+                    "Log in with your JU-Control account (the JU-Control app, ju-control.app and myjudo.eu use the same login).",
+                    "Mit dem JU-Control-Konto anmelden (JU-Control-App, ju-control.app und myjudo.eu nutzen dieselbe Anmeldung).",
                 ),
                 "data": {
                     "username": ("Username", "Benutzername"),
@@ -207,8 +207,8 @@ TEXT = {
                 "Benutzername oder Passwort ist falsch.",
             ),
             "cannot_connect": (
-                "myjudo.eu could not be reached.",
-                "myjudo.eu ist nicht erreichbar.",
+                "The JU-Control cloud could not be reached.",
+                "Die JU-Control-Cloud ist nicht erreichbar.",
             ),
             "unknown": ("Unexpected error.", "Unerwarteter Fehler."),
         },
@@ -248,16 +248,16 @@ TEXT = {
     },
     "exceptions": {
         "auth_failed": (
-            "myjudo.eu rejected the login.",
-            "myjudo.eu hat die Anmeldung abgelehnt.",
+            "The JU-Control cloud rejected the login. Retrying; if this lasts longer than an hour, you will be asked for the password.",
+            "Die JU-Control-Cloud hat die Anmeldung abgelehnt. Neuer Versuch läuft; dauert das länger als eine Stunde, wird nach dem Passwort gefragt.",
         ),
         "update_failed": (
-            "Could not read data from myjudo.eu: {error}",
-            "Daten von myjudo.eu nicht lesbar: {error}",
+            "Could not read data from the JU-Control cloud: {error}",
+            "Daten aus der JU-Control-Cloud nicht lesbar: {error}",
         ),
         "write_failed": (
-            "Could not send the command to myjudo.eu: {error}",
-            "Befehl an myjudo.eu fehlgeschlagen: {error}",
+            "Could not send the command to the JU-Control cloud: {error}",
+            "Befehl an die JU-Control-Cloud fehlgeschlagen: {error}",
         ),
         "sodium_limit": (
             "This hardness would give {sodium} mg/L sodium (limit {limit} mg/L). Choose at least {minimum} °dH.",
