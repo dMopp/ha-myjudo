@@ -1,9 +1,12 @@
-"""Client for the JUDO myjudo.eu cloud interface.
+"""Client for the JUDO JU-Control cloud.
 
-The interface is not officially documented. Register indices and byte offsets
-were taken from the community project "getjudo" by ShapeLabs
-(https://github.com/www-ShapeLabs-de/Judo-i-soft-save-plus-to-mqtt-bridge) and verified
-against a live i-soft safe device.
+The JU-Control app and its web version (https://www.ju-control.app) talk to the
+interface at www.myjudo.eu/interface/ (see config/config.js and js/connection.js
+of the web app). It is not officially documented. Register indices and byte
+offsets were taken from the community project "getjudo" by ShapeLabs
+(https://github.com/www-ShapeLabs-de/Judo-i-soft-save-plus-to-mqtt-bridge),
+checked against the decoder of the JU-Control web app and verified against a
+live i-soft safe device.
 """
 
 from __future__ import annotations
@@ -22,7 +25,9 @@ _LOGGER = logging.getLogger(__name__)
 
 BASE_URL = "https://www.myjudo.eu/interface/"
 TIMEOUT = aiohttp.ClientTimeout(total=30)
-# myjudo.eu reports timestamps in German local time without an offset.
+# Application key the JU-Control web app sends with its login
+APPLICATION = "JC"
+# The cloud reports timestamps in German local time without an offset.
 JUDO_TZ = ZoneInfo("Europe/Berlin")
 
 # Write indices
@@ -46,7 +51,7 @@ RAW_TO_HOLIDAY = {raw: name for name, raw in HOLIDAY_TO_RAW.items()}
 
 
 class JudoError(Exception):
-    """Generic error talking to myjudo.eu."""
+    """Generic error talking to the JU-Control cloud."""
 
 
 class JudoAuthError(JudoError):
@@ -166,7 +171,7 @@ def le_hex(value: int, length: int) -> str:
 
 
 class JudoClient:
-    """Minimal async client for myjudo.eu."""
+    """Minimal async client for the JU-Control cloud."""
 
     def __init__(
         self, session: aiohttp.ClientSession, username: str, password: str
@@ -201,7 +206,7 @@ class JudoClient:
         return data
 
     async def login(self) -> None:
-        """Get a fresh token."""
+        """Get a fresh token, logging in the way the JU-Control app does."""
         data = await self._request(
             {
                 "group": "register",
@@ -209,8 +214,8 @@ class JudoClient:
                 "name": "login",
                 "user": self._username,
                 "password": self._password_md5,
-                "nohash": "Service",
                 "role": "customer",
+                "application": APPLICATION,
             }
         )
         token = data.get("token")

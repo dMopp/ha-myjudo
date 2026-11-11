@@ -2,7 +2,7 @@
   "config": {
     "step": {
       "user": {
-        "description": "Log in with your myjudo.eu account (the same one the JUDO app uses).",
+        "description": "Log in with your JU-Control account (the JU-Control app, ju-control.app and myjudo.eu use the same login).",
         "data": {
           "username": "Username",
           "password": "Password",
@@ -22,7 +22,7 @@
     },
     "error": {
       "invalid_auth": "Username or password is wrong.",
-      "cannot_connect": "myjudo.eu could not be reached.",
+      "cannot_connect": "The JU-Control cloud could not be reached.",
       "unknown": "Unexpected error."
     },
     "abort": {
@@ -49,13 +49,13 @@
   },
   "exceptions": {
     "auth_failed": {
-      "message": "myjudo.eu rejected the login."
+      "message": "The JU-Control cloud rejected the login. Retrying; if this lasts longer than an hour, you will be asked for the password."
     },
     "update_failed": {
-      "message": "Could not read data from myjudo.eu: {error}"
+      "message": "Could not read data from the JU-Control cloud: {error}"
     },
     "write_failed": {
-      "message": "Could not send the command to myjudo.eu: {error}"
+      "message": "Could not send the command to the JU-Control cloud: {error}"
     },
     "sodium_limit": {
       "message": "This hardness would give {sodium} mg/L sodium (limit {limit} mg/L). Choose at least {minimum} °dH."

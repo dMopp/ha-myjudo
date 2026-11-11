@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.3.2] - 2026-11-11
+
+### Changed
+- Logs in the way JUDO's JU-Control app does (app key `JC`, no `nohash` field). The JU-Control app and ju-control.app use the same server as before (`www.myjudo.eu/interface/`), so entities, entity IDs and statistics stay unchanged and no reconfiguration is needed
+- Texts now speak of the JU-Control cloud instead of myjudo.eu, which JUDO no longer maintains as a website
+
+### Fixed
+- A rejected login no longer stops the integration for good. During JUDO's server maintenance (2026-11-06 to 2026-11-09) the cloud rejected valid logins, the integration treated that as a wrong password and stayed unavailable until it was reloaded by hand. Now it keeps retrying, asks for the password only after logins have failed for an hour, and withdraws that prompt once a login works again
+
 ## [0.3.1] - 2026-11-04
 
 ### Fixed

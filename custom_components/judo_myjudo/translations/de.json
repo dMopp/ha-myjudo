@@ -2,7 +2,7 @@
   "config": {
     "step": {
       "user": {
-        "description": "Mit dem myjudo.eu-Konto anmelden (dasselbe wie in der JUDO-App).",
+        "description": "Mit dem JU-Control-Konto anmelden (JU-Control-App, ju-control.app und myjudo.eu nutzen dieselbe Anmeldung).",
         "data": {
           "username": "Benutzername",
           "password": "Passwort",
@@ -22,7 +22,7 @@
     },
     "error": {
       "invalid_auth": "Benutzername oder Passwort ist falsch.",
-      "cannot_connect": "myjudo.eu ist nicht erreichbar.",
+      "cannot_connect": "Die JU-Control-Cloud ist nicht erreichbar.",
       "unknown": "Unerwarteter Fehler."
     },
     "abort": {
@@ -49,13 +49,13 @@
   },
   "exceptions": {
     "auth_failed": {
-      "message": "myjudo.eu hat die Anmeldung abgelehnt."
+      "message": "Die JU-Control-Cloud hat die Anmeldung abgelehnt. Neuer Versuch läuft; dauert das länger als eine Stunde, wird nach dem Passwort gefragt."
     },
     "update_failed": {
-      "message": "Daten von myjudo.eu nicht lesbar: {error}"
+      "message": "Daten aus der JU-Control-Cloud nicht lesbar: {error}"
     },
     "write_failed": {
-      "message": "Befehl an myjudo.eu fehlgeschlagen: {error}"
+      "message": "Befehl an die JU-Control-Cloud fehlgeschlagen: {error}"
     },
     "sodium_limit": {
       "message": "Diese Härte ergäbe {sodium} mg/L Natrium (Grenzwert {limit} mg/L). Mindestens {minimum} °dH wählen."
